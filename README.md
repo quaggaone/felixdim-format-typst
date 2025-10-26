@@ -1,6 +1,6 @@
-# felixdim templates for typst
+# felixdim format for Typst
 
-this is a collection of personal typst templates.
+this is a collection of personal Typst templates.
 
 ## requirements
 
