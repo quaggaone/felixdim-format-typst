@@ -11,7 +11,7 @@
 ) = {
   // import packages
   import "@preview/codly:1.3.0": *
-  import "@preview/codly-languages:0.1.8": *
+  import "@preview/codly-languages:0.1.10": *
   show: codly-init
 
   // import "@preview/cheq:0.3.0": checklist
