@@ -155,7 +155,7 @@
   )
 
   set par(
-    spacing: 1.5em + 6pt,
+    spacing: 1em + 6pt,
     justify: true,
   )
 
