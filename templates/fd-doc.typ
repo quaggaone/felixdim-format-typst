@@ -38,7 +38,7 @@
     date: date
   )
   set page(
-    margin: 2cm,
+    margin: 1.5cm,
     number-align: right,
     footer-descent: 20%,
     footer: context [
