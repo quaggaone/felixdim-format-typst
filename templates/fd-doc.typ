@@ -24,7 +24,7 @@
     radius: 0em,
     stroke: 0pt + luma(97%),
     fill: luma(97%),
-    number-align: right + horizon,
+    number-align: right + top,
     number-placement: "outside",
     lang-outset: (x: 0.45em, y: -0.13em),
     lang-radius: 0em,

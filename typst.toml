@@ -1,0 +1,14 @@
+[package]
+name = "felixdim-format"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Felix Dimmerling"]
+license = ""
+description = "collection of personal Typst templates in felixdim style"
+homepage = "https://github.com/quaggaone/felixdim-format-typst"
+repository = "https://github.com/quaggaone/felixdim-format-typst"
+exclude = ["*.pdf", "examples"]
+
+[dependencies]
+codly = "1.3.0"
+codly-languages = "0.1.10"

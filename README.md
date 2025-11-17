@@ -2,7 +2,38 @@
 
 this is a collection of personal Typst templates.
 
+## installation
+
+### as a local package
+
+clone this repository into your local Typst packages directory on macOS:
+
+```bash
+git clone https://github.com/quaggaone/felixdim-format-typst.git ~/Library/Application\ Support/typst/packages/local/felixdim-format/x.y.z
+```
+
+for other platforms, see the [Typst packages documentation](https://github.com/typst/packages#local-packages).
+
 ## usage
+
+### basic usage
+
+import the package and use the `fd-doc` template:
+
+```typst
+#import "@local/felixdim-format:x.y.z": fd-doc
+
+#show: fd-doc.with(
+  title: [your document title],
+  author: "your name",
+  description: [brief description],
+  date: datetime.today(),
+  lang: "en",
+  region: "eu",
+)
+
+your content goes here...
+```
 
 ### requirements
 
