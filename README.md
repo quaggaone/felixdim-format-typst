@@ -16,6 +16,17 @@ for other platforms, see the [Typst packages documentation](https://github.com/t
 
 ## usage
 
+### quick start with template
+
+initialize a new project using the template:
+
+```bash
+typst init @local/felixdim-format:x.y.z my-project
+cd my-project
+```
+
+this creates a new directory with a `main.typ` file pre-configured with the `fd-doc` template.
+
 ### basic usage
 
 import the package and use the `fd-doc` template:
@@ -32,7 +43,9 @@ import the package and use the `fd-doc` template:
   region: "eu",
 )
 
-your content goes here...
+== your content goes here
+
+note: the template automatically creates a level 1 heading from the title, so start your content with level 2 headings (==).
 ```
 
 ### requirements
