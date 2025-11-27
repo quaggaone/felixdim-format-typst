@@ -43,9 +43,11 @@ import the package and use the `fd-doc` template:
   region: "eu",
 )
 
-== your content goes here
+= introduction
 
-note: the template automatically creates a level 1 heading from the title, so start your content with level 2 headings (==).
+your content goes here.
+
+note: the template displays the title using the `title()` function (separate from headings), so you can start your content with level 1 headings (=) for main sections.
 ```
 
 ### requirements

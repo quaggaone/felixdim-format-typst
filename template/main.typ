@@ -9,18 +9,18 @@
   region: "eu",
 )
 
-== Introduction
+= Introduction
 
 Start writing your document here. This template uses the felixdim-format package with custom styling for documents.
 
-=== Features
+== Features
 
 - Clean typography using IBM Plex fonts
 - Code syntax highlighting with codly
 - Custom heading styles
 - Automatic page numbering and footers
 
-=== Example Code
+== Example Code
 
 Here's an example of inline code: `let x = 42`
 
@@ -29,6 +29,6 @@ def hello_world():
     print("Hello, World!")
 ```
 
-== Conclusion
+= Conclusion
 
 Replace this template content with your own text.

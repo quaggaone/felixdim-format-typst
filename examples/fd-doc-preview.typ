@@ -1,4 +1,4 @@
-#import "../templates/fd-doc.typ": conf
+#import "../template/fd-doc.typ": conf
 
 #show: doc => conf(
   title: [felixdim doc preview],
@@ -10,12 +10,16 @@
   doc
 )
 
-== Heading 2
+= Heading 1
 
 Lorem ipsum dolor sit amet, *consectetur* adipiscing elit, sed do _eiusmod tempor_ incididunt ut `labore et dolore`. magnam aliquam quaerat voluptatem.
 Ut enim aeque doleamus animo, cum corpore dolemus, fieri.
 
 $ integral f(x) thin d x = alpha^2 gamma $
+
+== Heading 2
+
+#lorem(30)
 
 === Heading 3
 

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### changed
+
+- title now uses `std.title()` function instead of heading level 1
+- adjusted heading hierarchy sizes and applied condensed width to all headings
+- updated documentation to reflect new heading structure
+
 ## [0.1.0] - 2025-01-17
 
 ### added

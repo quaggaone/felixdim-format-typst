@@ -96,29 +96,40 @@
     it
   ))
 
-  show heading.where(
-    level: 1
-  ): set text(
-    size: 1.3125em,
+  show std.title: set text(
+    size: 1.4em,
+    font: "IBM Plex Sans",
+    stretch: 75%,
     weight: "bold"
   )
+
+  show heading: set text(
+    stretch: 75%
+  )
+
   show heading.where(
-    level: 2
+    level: 1
   ): set text(
     size: 1.25em,
     weight: "bold"
   )
   show heading.where(
-    level: 3
+    level: 2
   ): set text(
     size: 1.1875em,
     weight: "bold"
   )
   show heading.where(
-    level: 4
+    level: 3
   ): set text(
     size: 1.125em,
-    font: "IBM Plex Sans SmBld",
+    weight: "bold"
+  )
+  show heading.where(
+    level: 4
+  ): set text(
+    size: 1.0625em,
+    font: "IBM Plex Sans Cond SmBld",
     weight: "semibold",
     style: "normal"
   )
@@ -126,7 +137,7 @@
     level: 5
   ): set text(
     size: 1em,
-    font: "IBM Plex Sans SmBld",
+    font: "IBM Plex Sans Cond SmBld",
     weight: "semibold",
     style: "normal"
   )
@@ -134,7 +145,7 @@
     level: 6
   ): set text(
     size: 0.9em,
-    font: "IBM Plex Sans Medm",
+    font: "IBM Plex Sans Cond Medm",
     weight: "medium",
     style: "normal"
   )
@@ -180,7 +191,7 @@
 
 
   // content
-  [= #context document.title]
+  std.title()
 
   doc
 }
