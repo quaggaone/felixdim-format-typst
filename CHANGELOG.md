@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.2.1] - 2025-01-27
+
+### fixed
+
+- heading font sizes now use explicit multiplication to avoid Typst's em unit stacking bug
+
+### changed
+
+- introduced `font-size` variable for consistent sizing
+- updated heading sizes: title 2.2×, h1 1.75×, h2 1.4×, h3 1.12×, h4 1.06×, h5 1.0×, h6 0.9×
+
 ## [0.2.0] - 2025-01-27
 
 ### changed

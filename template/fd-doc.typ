@@ -165,11 +165,12 @@
   )
 
   // text related setup
+  let font-size = 11pt
   set text(
     lang: lang,
     region: region,
     font: "IBM Plex Sans",
-    size: 11pt
+    size: font-size
   )
 
   show math.equation: set text(font: "IBM Plex Math")
@@ -194,7 +195,7 @@
   ))
 
   show std.title: set text(
-    size: 1.4em,
+    size: 2.2 * font-size,
     font: "IBM Plex Sans",
     stretch: 75%,
     weight: "bold"
@@ -207,25 +208,25 @@
   show heading.where(
     level: 1
   ): set text(
-    size: 1.25em,
+    size: 1.75 * font-size,
     weight: "bold"
   )
   show heading.where(
     level: 2
   ): set text(
-    size: 1.1875em,
+    size: 1.4 * font-size,
     weight: "bold"
   )
   show heading.where(
     level: 3
   ): set text(
-    size: 1.125em,
+    size: 1.12 * font-size,
     weight: "bold"
   )
   show heading.where(
     level: 4
   ): set text(
-    size: 1.0625em,
+    size: 1.06 * font-size,
     font: "IBM Plex Sans Cond SmBld",
     weight: "semibold",
     style: "normal"
@@ -233,7 +234,7 @@
   show heading.where(
     level: 5
   ): set text(
-    size: 1em,
+    size: 1.0 * font-size,
     font: "IBM Plex Sans Cond SmBld",
     weight: "semibold",
     style: "normal"
@@ -241,7 +242,7 @@
   show heading.where(
     level: 6
   ): set text(
-    size: 0.9em,
+    size: 0.9 * font-size,
     font: "IBM Plex Sans Cond Medm",
     weight: "medium",
     style: "normal"
