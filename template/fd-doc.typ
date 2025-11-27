@@ -42,27 +42,57 @@
     number-align: right,
     footer-descent: 20%,
     footer: context [
+      #let footer-font-size = 9pt
+      #let max-title-lines = 2
+      #let leading-em = 0.25em  // Space between lines
+      #let leading = footer-font-size * (leading-em / 1em)  // Convert em to pt
+      #set text(size: footer-font-size, stretch: 75%, top-edge: "ascender", bottom-edge: "descender")
+      #set par(leading: leading-em, spacing: 0pt)
+      #set block(above: 0pt, below: 0pt, spacing: 0pt)
       #grid(
-        columns: (1fr,3fr),
-        row-gutter: 24pt,
-        align: horizon,
-        [
-          #align(left)[
-            #counter(page).display(
-              "1 / 1",
-              both: true,
-            ) \
-            #if date == auto {
-              datetime.today().display("[year]-[month]-[day], [weekday repr:short]")
+        columns: (1fr, 3fr),
+        rows: (auto, auto),
+        row-gutter: 1pt,
+        align: top + left,
+
+        // Row 1, Column 1: Page number
+        [#counter(page).display("1 / 1", both: true)],
+
+        // Row 1, Column 2: Title (page 2+, max 2 lines with ellipsis)
+        align(top)[#if counter(page).get().at(0) > 1 {
+          layout(size => {
+            let title-text = document.title
+            let available-width = size.width  // Use full width from layout
+
+            // Measure a reference 2-line text to get the actual height
+            let reference-text = "Line one\nLine two"
+            let reference-height = measure(
+              block(width: available-width, text(size: footer-font-size, stretch: 75%, reference-text))
+            ).height
+
+            // Measure actual title
+            let measured = measure(
+              block(width: available-width, text(size: footer-font-size, stretch: 75%, title-text))
+            )
+
+            if measured.height > reference-height {
+              // Clip title and add ellipsis with proper positioning
+              block(width: 100%, height: reference-height, clip: true, title-text + [ ...])
             } else {
-              date.display("[year]-[month]-[day], [weekday repr:short]")
+              block(width: 100%, title-text)
             }
-          ]
-        ],
-        [#if counter(page).get().at(0) > 1 {document.title} \
-        #for (value) in document.author {
-          value
-        }]
+          })
+        }],
+
+        // Row 2, Column 1: Date
+        [#if date == auto {
+          datetime.today().display("[year]-[month]-[day], [weekday repr:short]")
+        } else {
+          date.display("[year]-[month]-[day], [weekday repr:short]")
+        }],
+
+        // Row 2, Column 2: Author
+        [#for (value) in document.author {value}],
       )
     ]
   )
