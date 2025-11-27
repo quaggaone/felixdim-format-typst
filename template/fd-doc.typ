@@ -43,9 +43,10 @@
     footer-descent: 20%,
     footer: context [
       #let footer-font-size = 9pt
-      #let max-title-lines = 2
-      #let leading-em = 0.25em  // Space between lines
-      #let leading = footer-font-size * (leading-em / 1em)  // Convert em to pt
+      #let max-title-lines = 1
+      #let leading-em = 0.25em  // tight line spacing for compact footer
+      #let leading = footer-font-size * (leading-em / 1em)  // convert em to pt for calculations
+      // use ascender/descender edges for accurate height measurements
       #set text(size: footer-font-size, stretch: 75%, top-edge: "ascender", bottom-edge: "descender")
       #set par(leading: leading-em, spacing: 0pt)
       #set block(above: 0pt, below: 0pt, spacing: 0pt)
@@ -55,43 +56,109 @@
         row-gutter: 1pt,
         align: top + left,
 
-        // Row 1, Column 1: Page number
+        // row 1, column 1: page number
         [#counter(page).display("1 / 1", both: true)],
 
-        // Row 1, Column 2: Title (page 2+, max 2 lines with ellipsis)
+        // row 1, column 2: title (page 2+, max lines with ellipsis)
         align(top)[#if counter(page).get().at(0) > 1 {
+          // layout() provides actual grid cell width needed for accurate text wrapping measurements
           layout(size => {
-            let title-text = document.title
-            let available-width = size.width  // Use full width from layout
+            let available-width = size.width
 
-            // Measure a reference 2-line text to get the actual height
-            let reference-text = "Line one\nLine two"
-            let reference-height = measure(
+            // title truncation strategy:
+            // 1. measure reference height for max-title-lines (configurable)
+            // 2. measure actual title height
+            // 3. if title too tall, extract plain text and binary search for max length
+            // 4. binary search ensures title + "..." fits exactly within height limit
+
+            // build reference text to measure target height
+            // creates N lines of dummy text to establish height limit for title
+            let reference-parts = ()
+            for i in range(max-title-lines) {
+              reference-parts.push("Line " + str(i + 1))
+            }
+            let reference-text = reference-parts.join("\n")
+            let reference-height = measure(  // target height limit based on max-title-lines
               block(width: available-width, text(size: footer-font-size, stretch: 75%, reference-text))
             ).height
 
-            // Measure actual title
-            let measured = measure(
-              block(width: available-width, text(size: footer-font-size, stretch: 75%, title-text))
-            )
+            let title-text = document.title
 
-            if measured.height > reference-height {
-              // Clip title and add ellipsis with proper positioning
-              block(width: 100%, height: reference-height, clip: true, title-text + [ ...])
+            // measure full title
+            let measured = measure(  // actual title height when rendered
+              block(width: available-width, text(size: footer-font-size, stretch: 75%, title-text))
+            ).height
+
+            if measured > reference-height {
+              // need to truncate - extract plain text from content
+              // extract plain text from typst content using repr()
+              // repr() returns different formats depending on content complexity:
+              // - simple: [text] -> just remove brackets
+              // - complex (with punctuation): sequence([part1], [part2], ...) -> extract all parts
+              let title-str = if type(title-text) == str {  // plain text extracted from content
+                title-text
+              } else {
+                // for content, use repr() and handle sequence() format
+                let r = repr(title-text)
+
+                // check if it's a sequence (complex content with multiple parts)
+                if r.starts-with("sequence(") {
+                  // extract all content blocks between [...]
+                  let result = ""
+                  let parts = r.split("[")
+                  for part in parts {
+                    if part.contains("]") {
+                      let content = part.split("]").at(0)
+                      result = result + content
+                    }
+                  }
+                  result
+                } else if r.starts-with("[") and r.ends-with("]") {
+                  // simple content - just remove outer brackets
+                  r.slice(1, -1)
+                } else {
+                  r
+                }
+              }
+
+              // use binary search to efficiently find maximum characters that fit
+              // avoids testing every possible length (O(log n) vs O(n))
+              // measures title + "..." to ensure ellipsis fits within height limit
+              let left = 0
+              let right = title-str.len()
+              let result = title-str.slice(0, calc.min(20, title-str.len())) + "..."  // fallback if search fails
+
+              // binary search to find maximum length that fits (including the "...")
+              while left < right {
+                let mid = calc.floor((left + right + 1) / 2)
+                let test-str = title-str.slice(0, mid) + "..."
+                let test-height = measure(
+                  block(width: available-width, text(size: footer-font-size, stretch: 75%, test-str))
+                ).height
+
+                if test-height <= reference-height {
+                  result = test-str
+                  left = mid
+                } else {
+                  right = mid - 1
+                }
+              }
+
+              block(width: 100%, result)
             } else {
               block(width: 100%, title-text)
             }
           })
         }],
 
-        // Row 2, Column 1: Date
+        // row 2, column 1: date
         [#if date == auto {
           datetime.today().display("[year]-[month]-[day], [weekday repr:short]")
         } else {
           date.display("[year]-[month]-[day], [weekday repr:short]")
         }],
 
-        // Row 2, Column 2: Author
+        // row 2, column 2: author
         [#for (value) in document.author {value}],
       )
     ]

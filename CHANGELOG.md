@@ -9,9 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### changed
 
-- title now uses `std.title()` function instead of heading level 1
-- adjusted heading hierarchy sizes and applied condensed width to all headings
+- **document title**: now uses `std.title()` function instead of heading level 1
+- **heading hierarchy**: headings now start at level 1 (previously level 2) since title is separate
+  - adjusted sizes and applied condensed width (75% stretch) to all levels
+- **footer layout**: redesigned with 2×2 grid, 9pt condensed font, and smart title truncation
+  - title only appears on page 2+ and truncates to configurable line limit with ellipsis
+  - improved spacing with tight leading (0.25em) and top alignment
+  - handles complex content (colons, punctuation) via binary search algorithm
 - updated documentation to reflect new heading structure
+
+### fixed
+
+- footer no longer pushes content or author information off page with long titles
 
 ## [0.1.0] - 2025-01-17
 
