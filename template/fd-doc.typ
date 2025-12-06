@@ -38,7 +38,7 @@
     date: date
   )
   set page(
-    margin: 1.5cm,
+    margin: (left: 1.5cm, right: 1.5cm, top: 1.5cm, bottom: 1.5cm),
     number-align: right,
     footer-descent: 20%,
     footer: context [
@@ -160,6 +160,60 @@
 
         // row 2, column 2: author
         [#for (value) in document.author {value}],
+      )
+    ],
+    background: context [
+      // page-wise TOC with lines in right margin
+      #let toc-color-inactive = luma(85%)
+      #let toc-color-active = luma(30%)
+      #let toc-line-spacing = 0.1cm
+      #let max-line-length = 0.9cm
+      #let line-decrement = 0.15cm
+
+      // get all headings in document
+      #let all-headings = query(selector(heading))
+      #let current-page = here().page()
+
+      // filter headings up to level 6
+      #let toc-headings = all-headings.filter(h => h.level <= 6)
+
+      // resolve page.margin from relative length to absolute value
+      // relative lengths have .length (absolute) and .ratio (percentage) components
+      // see: https://stackoverflow.com/questions/77690878/get-current-page-margins-in-typst#78185552
+      #let margin-right = if page.margin == auto {
+        calc.min(page.width, page.height) * 2.5 / 21
+      } else {
+        page.margin.length + page.margin.ratio * page.width
+      }
+
+      // resolve top margin the same way as right margin
+      #let margin-top = if page.margin == auto {
+        calc.min(page.width, page.height) * 2.5 / 21
+      } else {
+        page.margin.length + page.margin.ratio * page.height
+      }
+
+      #place(
+        right + top,
+        dx: -1 * (margin-right - max-line-length) / 2,
+        dy: margin-top,
+        stack(
+          dir: ttb,
+          spacing: toc-line-spacing,
+          ..toc-headings.map(h => {
+            let line-length = max-line-length - (h.level - 1) * line-decrement
+
+            // heading is active if it's on current page
+            let is-active = h.location().page() == current-page
+
+            let line-color = if is-active { toc-color-active } else { toc-color-inactive }
+
+            line(
+              length: line-length,
+              stroke: 1pt + line-color
+            )
+          })
+        )
       )
     ]
   )
