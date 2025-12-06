@@ -260,7 +260,8 @@
   ): text
 
   show heading: set block(
-    below: 12pt
+    above: 1.5em,
+    below: 1.1 * font-size  // ~12pt spacing after headings (maintains previous value)
   )
 
   set par(

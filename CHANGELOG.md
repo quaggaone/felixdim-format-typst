@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### changed
+
+- heading spacing now uses relative units (1.5em above, 1.1× base font-size below) for consistent scaling
+
 ## [0.2.1] - 2025-01-27
 
 ### fixed
