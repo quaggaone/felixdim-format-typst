@@ -177,6 +177,10 @@
       // filter headings up to level 6
       #let toc-headings = all-headings.filter(h => h.level <= 6)
 
+      // get first heading on current page
+      #let headings-on-page = toc-headings.filter(h => h.location().page() == current-page)
+      #let first-heading-on-page = if headings-on-page.len() > 0 { headings-on-page.first() } else { none }
+
       // resolve page.margin from relative length to absolute value
       // relative lengths have .length (absolute) and .ratio (percentage) components
       // see: https://stackoverflow.com/questions/77690878/get-current-page-margins-in-typst#78185552
@@ -193,6 +197,24 @@
         page.margin.length + page.margin.ratio * page.height
       }
 
+      // check if page starts with a heading by examining the position of the first heading
+      // if the first heading's y-position is at/near the top margin, page starts with heading
+      #let page-starts-with-heading = if first-heading-on-page != none {
+        let heading-pos = first-heading-on-page.location().position()
+        // check if heading is within a small threshold of the top margin (e.g., 0.5cm tolerance)
+        calc.abs(heading-pos.y - margin-top) < 0.5cm
+      } else {
+        false
+      }
+
+      // get previous heading and only mark it active if page doesn't start with a heading
+      #let headings-before = query(selector(heading).before(here()))
+      #let active-headings = if headings-before.len() > 0 and not page-starts-with-heading {
+        (headings-before.last(),)
+      } else {
+        ()
+      }
+
       #place(
         right + top,
         dx: -1 * (margin-right - max-line-length) / 2,
@@ -203,8 +225,9 @@
           ..toc-headings.map(h => {
             let line-length = max-line-length - (h.level - 1) * line-decrement
 
-            // heading is active if it's on current page
-            let is-active = h.location().page() == current-page
+            // heading is active if it's on current page OR is the previous heading (if page doesn't start with heading)
+            let is-on-page = h.location().page() == current-page
+            let is-active = is-on-page or active-headings.contains(h)
 
             let line-color = if is-active { toc-color-active } else { toc-color-inactive }
 

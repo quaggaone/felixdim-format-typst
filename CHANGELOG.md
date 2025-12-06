@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - semibold formatting for table header row and first column
 - 75% text stretch (condensed) applied to all tables
 - page-wise visual TOC in right margin showing document structure with varying line lengths by heading level
-- active heading highlighting in margin TOC (dark lines for headings on current page)
+- active heading highlighting in margin TOC (dark lines for headings on current page and previous heading when its content continues onto page)
 
 ### changed
 
