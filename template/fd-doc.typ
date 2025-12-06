@@ -279,6 +279,36 @@
   show figure.caption: set align(left)
   show figure: set block(width: 100%)
 
+  // table settings
+  let table-stroke-outer = 1.25pt
+  let table-stroke-header = 0.75pt
+
+  set table(
+    inset: (x: 0.5em, y: 0.4em),
+    align: left,
+    stroke: (x, y) => (
+      top: if y == 0 { table-stroke-outer } else if y == 1 { table-stroke-header } else if y > 1 { 0pt },
+      bottom: table-stroke-outer,
+      x: none,
+    )
+  )
+
+  show table: it => {
+    set text(stretch: 75%)
+
+    show table.cell: cell => {
+      // semibold weight for header row (row 0) and first column (col 0)
+      if cell.y == 0 or cell.x == 0 {
+        set text(font: "IBM Plex Sans Cond SmBld", weight: "semibold")
+        cell
+      } else {
+        cell
+      }
+    }
+
+    it
+  }
+
   // outline settings
   show outline: set heading(
     // numbering: "1.1", // enables numbering for items manually added to the outline

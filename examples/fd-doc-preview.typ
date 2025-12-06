@@ -54,6 +54,15 @@ common_sample_monthly <- common_sample |>
 
 #lorem(30)
 
+#table(
+  columns: 4,
+  [Feature], [Value], [Status], [Priority],
+  [Performance], [Fast], [Active], [High],
+  [Security], [Strong], [Active], [High],
+  [Usability], [Good], [Testing], [Medium],
+  [Scalability], [Excellent], [Planned], [Low],
+)
+
 ====== Heading 6
 
 #lorem(230)

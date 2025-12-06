@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### added
+
+- table styling with horizontal lines only (thick borders at top/bottom, thin line below header)
+- semibold formatting for table header row and first column
+- 75% text stretch (condensed) applied to all tables
+
 ### changed
 
 - heading spacing now uses relative units (1.5em above, 1.1× base font-size below) for consistent scaling
