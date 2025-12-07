@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.3.0] - 2025-12-07
+
 ### added
 
 - table styling with horizontal lines only (thick borders at top/bottom, thin line below header)
