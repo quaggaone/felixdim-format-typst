@@ -31,11 +31,20 @@
   )
 
   // document setup
+  // convert structured date dictionary to datetime object if needed
+  let doc-date = if date == auto {
+    auto
+  } else if type(date) == dictionary {
+    datetime(year: date.year, month: date.month, day: date.day)
+  } else {
+    date
+  }
+
   set document(
     title: title,
     author: author,
     description: description,
-    date: date
+    date: doc-date
   )
   set page(
     margin: (left: 1.5cm, right: 1.5cm, top: 1.5cm, bottom: 1.5cm),
@@ -152,10 +161,10 @@
         }],
 
         // row 2, column 1: date
-        [#if date == auto {
+        [#if doc-date == auto {
           datetime.today().display("[year]-[month]-[day], [weekday repr:short]")
         } else {
-          date.display("[year]-[month]-[day], [weekday repr:short]")
+          doc-date.display("[year]-[month]-[day], [weekday repr:short]")
         }],
 
         // row 2, column 2: author

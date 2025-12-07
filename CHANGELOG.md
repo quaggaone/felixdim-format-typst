@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.3.1] - 2025-12-07
+
+### added
+
+- pandoc lua filter for converting structured YAML date objects to typst datetime constructors
+  - enables use of `date: {year: 2025, month: 12, day: 8}` format in YAML front matter
+  - filter automatically converts to `datetime(year: 2025, month: 12, day: 8)` for typst templates
+
 ## [0.3.0] - 2025-12-07
 
 ### added
