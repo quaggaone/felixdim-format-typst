@@ -78,5 +78,19 @@ special options for the `conf` function:
 - [ ] ADD support for checkboxes (`cheq` extension)
 - [ ] IMPROVE layout/display for horizontal lines
 - [ ] IMPROVE layout/display for blockquotes
-- [ ] ADD formula numbering
+- [ ] ADD callout layout (extend blockquotes)
+- [ ] ADD numbering for formulas (block level math)
 - [ ] IMPROVE formula formatting (inline and block)
+- [ ] ADD option for heading numbering
+- [ ] ADD option for table of contents
+- [ ] ADD basic cover page styles/options
+- [ ] ADD option to set columns
+- [ ] ADD option for page size
+- [ ] TABLES
+    - [ ] FIX alignment (always left aligned by default; never block style)
+    - [ ] ADD conditionals for when first column is bold (empty first row cell or case-insesitive matching to: name, id, type, etc.)
+    - [ ] ADJUST weights of column width determination (narrow cols should remain with min-widht and long cols can break sooner) \
+        -> short cells looks better unbroken and long cells might as well break
+    - [ ] ADD rotate table when its contents are too wide for the available horizontal space (respect column width not page width)
+    - [ ] not all tables must be 100% width (figure out when and how)
+    - [ ]
