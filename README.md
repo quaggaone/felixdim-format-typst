@@ -86,6 +86,7 @@ special options for the `conf` function:
 - [ ] ADD basic cover page styles/options
 - [ ] ADD option to set columns
 - [ ] ADD option for page size
+- [ ] ADD IBM Plex font files (so font doesn’t have to be installed)
 - [ ] TABLES
     - [ ] FIX alignment (always left aligned by default; never block style)
     - [ ] ADD conditionals for when first column is bold (empty first row cell or case-insesitive matching to: name, id, type, etc.)
@@ -93,4 +94,4 @@ special options for the `conf` function:
         -> short cells looks better unbroken and long cells might as well break
     - [ ] ADD rotate table when its contents are too wide for the available horizontal space (respect column width not page width)
     - [ ] not all tables must be 100% width (figure out when and how)
-    - [ ]
+
