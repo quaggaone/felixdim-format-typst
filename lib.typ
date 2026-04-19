@@ -2,8 +2,6 @@
 //
 // this package provides personal Typst templates in felixdim style
 
-// import and export the fd-doc template
+// templates
 #import "template/fd-doc.typ": conf as fd-doc
-
-// export the template
-#let fd-doc = fd-doc
+#import "template/fd-binder-spine.typ": conf as fd-binder-spine
