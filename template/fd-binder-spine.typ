@@ -14,6 +14,7 @@
   size: "regular",
   width: none,
   height: none,
+  bullets: false,
   doc
 ) = {
   // resolve dimensions: explicit width/height override the preset
@@ -42,6 +43,7 @@
   // ruled line parameters
   let line-height       = 8mm
   let bullet-width      = 8mm
+  let line-left-margin  = if bullets { bullet-width } else { 3mm }
   let indent-per-depth  = 4mm
   let line-stroke       = 0.35pt + luma(70%)
   let content-font-size = line-height * 0.44
@@ -113,12 +115,12 @@
           )
         )
       }
-      // ruled lines: from bullet-width to right page edge, every 8mm from strip bottom
+      // ruled lines: from line-left-margin to right page edge, every 8mm from strip bottom
       #for i in range(1, num-lines + 1) {
         place(top + left,
-          dx: bullet-width,
+          dx: line-left-margin,
           dy: top-strip-height + i * line-height,
-          line(length: width - bullet-width, stroke: line-stroke)
+          line(length: width - line-left-margin, stroke: line-stroke)
         )
       }
       // bottom strip
@@ -138,7 +140,7 @@
 
   set text(font: font, stretch: 75%)
 
-  // body: one grid row per content item, overlaid on the background ruled lines
+  // body: one row per content item, overlaid on the background ruled lines
   if content.len() > 0 {
     set block(above: 0pt, below: 0pt)
     set par(spacing: 0pt)
@@ -146,16 +148,28 @@
     stack(
       dir: ttb,
       spacing: 0pt,
-      ..content.map(item => grid(
-        columns: (bullet-width, 1fr),
-        rows:    (line-height,),
-        align(center + horizon,
-          text(size: bullet-width * 0.30, fill: luma(20%), "▶")
-        ),
-        align(left + horizon, pad(top: 0.7mm,
-          text(size: content-font-size, weight: "medium", item)
-        )),
-      ))
+      ..content.map(item => if bullets {
+        grid(
+          columns: (bullet-width, 1fr),
+          rows:    (line-height,),
+          align(center + horizon,
+            text(size: bullet-width * 0.30, fill: luma(20%), "▶")
+          ),
+          align(left + horizon, pad(top: 0.7mm,
+            text(size: content-font-size, weight: "medium", item)
+          )),
+        )
+      } else {
+        box(
+          width: 100%,
+          height: line-height,
+          pad(left: line-left-margin, top: 0.7mm,
+            align(left + horizon,
+              text(size: content-font-size, weight: "medium", item)
+            )
+          )
+        )
+      })
     )
   }
 
