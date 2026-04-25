@@ -7,6 +7,7 @@
   // auto is needed so PDF metadata has precise creation timecode
   lang: "en",
   region: "eu",
+  columns: 1,
   doc
 ) = {
   // import packages
@@ -48,6 +49,7 @@
   )
   set page(
     margin: (left: 1.5cm, right: 1.5cm, top: 1.5cm, bottom: 1.5cm),
+    columns: columns,
     number-align: right,
     footer-descent: 20%,
     footer: context [
