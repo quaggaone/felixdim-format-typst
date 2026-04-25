@@ -7,6 +7,7 @@
   date: datetime.today(),
   lang: "en",
   region: "eu",
+  columns: 1,
 )
 
 = Introduction
